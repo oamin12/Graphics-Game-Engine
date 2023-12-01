@@ -16,5 +16,29 @@ out Varyings {
 
 //TODO: (Req 1) Finish this shader
 
+uniform vec2 translation = vec2(0.0, 0.0);
+uniform vec2 scale = vec2(1.0, 1.0);
+
 void main(){
+
+    // define the position and color of each vertex of the triangle
+    vec3 position [] = vec3[](
+        vec3(-0.5, -0.5, 0.0),
+        vec3(0.5, -0.5, 0.0),
+        vec3(0.0, 0.5, 0.0)
+    );
+
+    vec3 color [] = vec3[](
+        vec3(1.0, 0.0, 0.0),
+        vec3(0.0, 1.0, 0.0),
+        vec3(0.0, 0.0, 1.0)
+    );
+
+    // apply the transformation to the vertex position
+    position[gl_VertexID].xy *= scale;
+    position[gl_VertexID].xy += translation;
+    gl_Position = vec4(position[gl_VertexID], 1.0);
+    // pass the color to the fragment shader according to the vertexID
+    vs_out.color = color[gl_VertexID];
+    
 }
