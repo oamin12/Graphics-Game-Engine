@@ -10,6 +10,11 @@ our::Texture2D *our::texture_utils::empty(GLenum format, glm::ivec2 size)
     our::Texture2D *texture = new our::Texture2D();
     // TODO: (Req 11) Finish this function to create an empty texture with the given size and format
 
+    texture->bind();
+    // Upload the image data to the texture object name,  //(1st: texture target, 2nd: mipmap level, 3rd: internal format, 4th: width, 5th: height, 6th: border, 7th: format, 8th: type, 9th: pointer to the image data)
+    glTexImage2D(GL_TEXTURE_2D, 0, format, size.x, size.y, 0, format, GL_UNSIGNED_BYTE, nullptr); 
+    texture->unbind(); 
+
     return texture;
 }
 
