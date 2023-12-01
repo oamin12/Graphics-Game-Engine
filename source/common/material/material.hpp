@@ -15,7 +15,7 @@ namespace our {
     // 1- The pipeline state when drawing objects using this material
     // 2- The shader program used to draw objects using this material
     // 3- Whether this material is transparent or not
-    // Materials that send uniforms to the shader should inherit from the is material and add the required uniforms
+    // Materials that send uniforms to the shader should inherit from this material and add the required uniforms
     class Material {
     public:
         PipelineState pipelineState;
