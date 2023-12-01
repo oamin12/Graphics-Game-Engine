@@ -16,7 +16,9 @@ uniform mat4 transform;
 
 void main(){
     //TODO: (Req 3) Change the next line to apply the transformation matrix
-    
+    // we apply TRS (translate, rotate, scale) in that order to the position vector by multiplying it with the transform matrix
+    // this matrix is homogeneous, so we need to add a 1 to the end of the position vector
+    gl_Position = transform * vec4(position, 1.0);
     // No need to change any of the following lines
     vs_out.position = position;
     vs_out.color = color;
