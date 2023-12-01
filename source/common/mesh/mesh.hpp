@@ -59,7 +59,7 @@ namespace our {
             glEnableVertexAttribArray(ATTRIB_LOC_COLOR);
 
 
-            glVertexAttribPointer(ATTRIB_LOC_TEXCOORD, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, texCoord));
+            glVertexAttribPointer(ATTRIB_LOC_TEXCOORD, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, tex_coord));
             glEnableVertexAttribArray(ATTRIB_LOC_TEXCOORD);
 
 
