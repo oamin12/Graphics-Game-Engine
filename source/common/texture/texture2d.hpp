@@ -42,7 +42,7 @@ namespace our
         // This static method ensures that no texture is bound to GL_TEXTURE_2D
         static void unbind()
         {
-            glBindTexture(GL_TEXTURE_2D, 0); // Bind the texture object name to GL_TEXTURE_2D
+            glBindTexture(GL_TEXTURE_2D, 0); // unbind the texture
             // TODO: (Req 5) Complete this function
         }
 
