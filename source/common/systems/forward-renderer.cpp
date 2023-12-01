@@ -1,7 +1,7 @@
 #include "forward-renderer.hpp"
 #include "../mesh/mesh-utils.hpp"
 #include "../texture/texture-utils.hpp"
-
+#include <iostream>
 namespace our {
 
     void ForwardRenderer::initialize(glm::ivec2 windowSize, const nlohmann::json& config){
@@ -60,12 +60,12 @@ namespace our {
             // The depth format can be (Depth component with 24 bits).
             
             //color texture
-            colorTarget = texture_utils::empty(GL_RGBA8, windowSize);
+            colorTarget = texture_utils::empty(GL_RGBA, windowSize);
             //NOTE: colorTarget->getOpenGLName() returns the texture name(id)
             glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, colorTarget->getOpenGLName(), 0);
     
             //depth texture
-            depthTarget = texture_utils::empty(GL_DEPTH_COMPONENT24, windowSize);
+            depthTarget = texture_utils::empty(GL_DEPTH_COMPONENT, windowSize);
             glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthTarget->getOpenGLName(), 0);
             
             //TODO: (Req 11) Unbind the framebuffer just to be safe
@@ -180,7 +180,7 @@ namespace our {
         // If there is a postprocess material, bind the framebuffer
         if(postprocessMaterial){
             //TODO: (Req 11) bind the framebuffer
-            
+            glBindFramebuffer(GL_FRAMEBUFFER, postprocessFrameBuffer);
         }
 
         //TODO: (Req 9) Clear the color and depth buffers
@@ -233,6 +233,7 @@ namespace our {
         // If there is a postprocess material, apply postprocessing
         if(postprocessMaterial){
             //TODO: (Req 11) Return to the default framebuffer
+            
             glBindFramebuffer(GL_FRAMEBUFFER, 0);
             //TODO: (Req 11) Setup the postprocess material and draw the fullscreen triangle
             postprocessMaterial->setup();
