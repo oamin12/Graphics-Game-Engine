@@ -38,7 +38,7 @@ namespace our {
             
             T* component = new T();
             component->owner = this;
-            components.push_back(component);
+            this->components.push_back(component);
 
             return component;
         }
@@ -86,7 +86,7 @@ namespace our {
                 //if the cast was successful, delete the component and remove it from the list
                 if (castedComponent != nullptr) {
                     //remove the component from the list
-                    components.remove(component);
+                    this->components.erase(component);
                     //delete the component
                     delete component;
                     //break if we found the component
@@ -114,7 +114,7 @@ namespace our {
                 //if the component is the one we are looking for, delete it and remove it from the list
                 if (myComponent == component) {
                     //remove the component from the list
-                    components.remove(myComponent);
+                    this->components.erase(myComponent);
                     //delete the component
                     delete myComponent;
                     //break if we found the component
@@ -126,6 +126,11 @@ namespace our {
         // Since the entity owns its components, they should be deleted alongside the entity
         ~Entity(){
             //TODO: (Req 8) Delete all the components in "components".
+            for(auto component : components) {
+                //delete the component
+                delete component;
+            }
+            this->components.clear();
         }
 
         // Entities should not be copyable

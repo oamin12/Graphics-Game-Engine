@@ -22,9 +22,10 @@ namespace our {
             //TODO: (Req 10) Pick the correct pipeline state to draw the sky
             // Hints: the sky will be draw after the opaque objects so we would need depth testing but which depth funtion should we pick?
             // We will draw the sphere from the inside, so what options should we pick for the face culling.
-            PipelineState skyPipelineState;
+            PipelineState skyPipelineState{};
             skyPipelineState.depthTesting.enabled = true;
             skyPipelineState.faceCulling.enabled = true;
+            skyPipelineState.faceCulling.culledFace = GL_FRONT; //because we are drawing the sphere from the inside
 
             // Load the sky texture (note that we don't need mipmaps since we want to avoid any unnecessary blurring while rendering the sky)
             std::string skyTextureFile = config.value<std::string>("sky", "");

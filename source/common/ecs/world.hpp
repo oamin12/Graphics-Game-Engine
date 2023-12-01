@@ -60,11 +60,11 @@ namespace our {
         //This deletes all entities in the world
         void clear(){
             //TODO: (Req 8) Delete all the entites and make sure that the containers are empty
-            deleteMarkedEntities();
             for(Entity* entity : entities){
-                entities.erase(entity);
                 delete entity;
             }
+            entities.clear();
+            markedForRemoval.clear();
         }
 
         //Since the world owns all of its entities, they should be deleted alongside it.

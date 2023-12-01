@@ -14,13 +14,13 @@ namespace our {
         //TODO: (Req 8) Write this function
         
         //if the entity has no parent, return the local transform
-        if (parent == nullptr) {
+        if (this->parent == nullptr) {
             return localTransform.toMat4();
         }
 
         //otherwise, return the parent's local to world matrix multiplied by the local transform
         //order here is important, since we want to apply the the component's transform first before the parent's
-        return parent->getLocalToWorldMatrix() * localTransform.toMat4();
+        return this->parent->getLocalToWorldMatrix() * this->localTransform.toMat4();
     }
 
     // Deserializes the entity data and components from a json object
