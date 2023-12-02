@@ -46,7 +46,7 @@ namespace our {
         // This template method searhes for a component of type T and returns a pointer to it
         // If no component of type T was found, it returns a nullptr 
         template<typename T>
-        T* getComponent(){
+        T* getComponent(){ //get first component of certain entity
             //TODO: (Req 8) Go through the components list and find the first component that can be dynamically cast to "T*".
             // Return the component you found, or return null of nothing was found.
             T* castedComponent = nullptr;

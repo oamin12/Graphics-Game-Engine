@@ -21,8 +21,8 @@ namespace our {
 
     // Creates and returns the camera view matrix
     glm::mat4 CameraComponent::getViewMatrix() const {
-        auto owner = getOwner();
-        auto M = owner->getLocalToWorldMatrix();
+        auto owner = getOwner(); //get the entity that owns this camera component
+        auto M = owner->getLocalToWorldMatrix(); //get the local to world matrix of the entity => mat4
         //TODO: (Req 8) Complete this function
         //HINT:
         // In the camera space:
@@ -39,11 +39,11 @@ namespace our {
         glm::vec4 center = glm::vec4(0.0f, 0.0f, -1.0f, 1.0f); //point
         glm::vec4 up = glm::vec4(0.0f, 1.0f, 0.0f, 0.0f); //vector
 
-        glm::vec3 eyeWorld = M * eye;
+        glm::vec3 eyeWorld = M * eye; 
         glm::vec3 centerWorld = M * center;
         glm::vec3 upWorld = M * up;
 
-        return glm::lookAt(eyeWorld, centerWorld, upWorld);
+        return glm::lookAt(eyeWorld, centerWorld, upWorld); //=> mat4
     }
 
     // Creates and returns the camera projection matrix

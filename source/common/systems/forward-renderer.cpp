@@ -191,7 +191,6 @@ namespace our {
         for(auto command : opaqueCommands){
             command.material->setup();
             command.material->shader->set("transform", VP * command.localToWorld);
-            command.material->shader->set("object_to_world", command.localToWorld);
             command.mesh->draw();
         }
         
@@ -226,7 +225,6 @@ namespace our {
         for(auto command : transparentCommands){
             command.material->setup();
             command.material->shader->set("transform", VP * command.localToWorld);
-            command.material->shader->set("object_to_world", command.localToWorld);
             command.mesh->draw();
         }
 
