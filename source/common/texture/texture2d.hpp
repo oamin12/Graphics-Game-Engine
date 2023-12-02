@@ -35,7 +35,7 @@ namespace our
         // This method binds this texture to GL_TEXTURE_2D
         void bind() const
         {
-            glBindTexture(GL_TEXTURE_2D, name); // Bind the texture object name to GL_TEXTURE_2D
+            glBindTexture(GL_TEXTURE_2D, name); // Bind the texture object name to GL_TEXTURE_2D (Bind the created texture object name to a type of texture )
             // TODO: (Req 5) Complete this function
         }
 

@@ -39,8 +39,8 @@ namespace our
 
         // These options specify the color and depth mask which can be used to
         // prevent the rendering/clearing from modifying certain channels of certain targets in the framebuffer
-        glm::bvec4 colorMask = {true, true, true, true}; // To know how to use it, check glColorMask
-        bool depthMask = true;                           // To know how to use it, check glDepthMask
+        glm::bvec4 colorMask = {true, true, true, true}; // To know how to use it, check glColorMask, if the value is true, the corresponding channel will be written to the framebuffer, otherwise, it will not be written
+        bool depthMask = true;                           // To know how to use it, check glDepthMask (true means that the depth buffer can be written to, false means that it cannot be written to)
 
         // This function should set the OpenGL options to the values specified by this structure
         // For example, if faceCulling.enabled is true, you should call glEnable(GL_CULL_FACE), otherwise, you should call glDisable(GL_CULL_FACE)
@@ -62,7 +62,7 @@ namespace our
             if (depthTesting.enabled) // if the enabled value in the depth testing struct is true
             {
                 glEnable(GL_DEPTH_TEST);            // enable depth testing
-                glDepthFunc(depthTesting.function); // This draws objects based on the function specified in the depth testing struct
+                glDepthFunc(depthTesting.function); // This draws objects based on the function specified in the depth testing struct (the depth function is what compares the depth of the new fragment with the depth of the fragment that is already stored in the depth buffer)
             }
             else
             {
@@ -70,10 +70,10 @@ namespace our
             }
             if (blending.enabled) // if the enabled value in the depth testing struct is true
             {
-                glEnable(GL_BLEND);                                                                                                   // enable blending
+                glEnable(GL_BLEND);                                                                                                   // Enable Blending                                                                                                  // enable blending
                 glBlendEquation(blending.equation);                                                                                   // This draws objects based on the function specified in the depth testing struct
                 glBlendFunc(blending.sourceFactor, blending.destinationFactor);                                                       // This function specifies the blending factors
-                glBlendColor(blending.constantColor.r, blending.constantColor.g, blending.constantColor.b, blending.constantColor.a); // This function specifies the blending color
+                glBlendColor(blending.constantColor.r, blending.constantColor.g, blending.constantColor.b, blending.constantColor.a); // This function specifies the blending color (can be used to calculate the blending factors)
             }
             else
             {

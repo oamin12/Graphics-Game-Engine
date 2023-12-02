@@ -13,7 +13,7 @@ out Varyings {
 } vs_out;
 
 void main(){
-    gl_Position =  vec4(position, 1.0);
+    gl_Position =  vec4(position, 1.0); 
     vs_out.position = position;
     vs_out.color = color;
     vs_out.tex_coord = tex_coord;

@@ -32,7 +32,7 @@ namespace our
         void bind(GLuint textureUnit) const
         {
             // TODO: (Req 6) Complete this function
-            glBindSampler(textureUnit, name);
+            glBindSampler(textureUnit, name); // Bind the sampler object name to the texture unit (texture unit is the binding point between the sampler and the texture object)
         }
 
         // This static method ensures that no sampler is bound to the given texture unit
@@ -47,7 +47,7 @@ namespace our
         void set(GLenum parameter, GLint value) const
         {
             // TODO: (Req 6) Complete this function
-            glSamplerParameteri(name, parameter, value);
+            glSamplerParameteri(name, parameter, value); // Set the sampler parameter(integer value), (1st: sampler object name, 2nd: parameter name(can be wrapping, Min and Mag filtering,...etc), 3rd: parameter value(can be GL_REPEAT, GL_LINEAR, GL_NEAREST,...etc))
         }
 
         // This function sets a sampler paramter where the value is of type "GLfloat"
@@ -62,7 +62,7 @@ namespace our
         // This can be used to set the "GL_TEXTURE_BORDER_COLOR" parameter
         void set(GLenum parameter, glm::vec4 value) const
         {
-            glSamplerParameterfv(name, parameter, &(value.r));
+            glSamplerParameterfv(name, parameter, &(value.r)); // fv stands for float vector
         }
 
         // Given a json object, this function deserializes the sampler state
