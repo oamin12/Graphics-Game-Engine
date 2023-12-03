@@ -50,11 +50,12 @@ namespace our {
         // the following line activates the first texture unit. Texture units are slots to which textures can be bound for use in the shader program.
         glActiveTexture(GL_TEXTURE0);// ta2reeban can be removed as it is the default texture unit
 
+        //binding the object means to make it the current object that will be used in the next operations
         if (texture)//if texture is not null then bind it
             texture->bind();
 
         if (sampler)
-            sampler->bind(0);
+            sampler->bind(0); //bind the sampler to the first texture unit (0) 
 
             
         //bind the texture and sampler to a texture unit and send the unit number to the uniform variable "tex"

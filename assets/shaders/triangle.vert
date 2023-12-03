@@ -35,6 +35,7 @@ void main(){
     );
 
     // apply the transformation to the vertex position
+    //we applied the transformation to the vertex position x and y
     position[gl_VertexID].xy *= scale;
     position[gl_VertexID].xy += translation;
     gl_Position = vec4(position[gl_VertexID], 1.0);

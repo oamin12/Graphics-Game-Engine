@@ -29,6 +29,7 @@ bool our::ShaderProgram::attach(const std::string &filename, GLenum type) const 
     //create a shader object
     GLuint shader = glCreateShader(type);
     //attach the GLSL code to the shader
+    // 1 is the number of strings we are passing, &sourceCStr is the array of strings, nullptr is the array of string lengths
     glShaderSource(shader, 1, &sourceCStr, nullptr);
     //compile the shader
     glCompileShader(shader);
@@ -42,6 +43,7 @@ bool our::ShaderProgram::attach(const std::string &filename, GLenum type) const 
     }
 
     //Attach the shader to the program el et3amalo create fel hpp file
+    //program is the program object 
     glAttachShader(program, shader);
     //Delete the shader since it has been attached to the program khalas ba2a mawgood fel program
     glDeleteShader(shader);
@@ -58,7 +60,7 @@ bool our::ShaderProgram::link() const {
     // linking error and print it so that you can know what is wrong with the
     // program. The returned string will be empty if there is no errors.
 
-    //Link the program
+    //Link the program, linking is the process of combining all the shaders together, connecting the input and output variables between them 
     glLinkProgram(program);
 
     //Check if there is any error in the linking process

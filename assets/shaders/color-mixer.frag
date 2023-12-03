@@ -30,6 +30,7 @@ void main(){
     frag_color.r = dot(red.rgb, fs_in.color) + red.a;
     frag_color.g = dot(green.rgb, fs_in.color)+ green.a;
     frag_color.b = dot(blue.rgb, fs_in.color) + blue.a;
+    // we set the alpha to 1.0  (opaque)
     frag_color.a = 1.0;
 
 }
