@@ -7,6 +7,8 @@
 #include "movement.hpp"
 #include "obstacles.hpp"
 
+#include "light.hpp"
+
 namespace our
 {
 
@@ -37,8 +39,10 @@ namespace our
         {
             component = entity->addComponent<ObstaclesComponent>();
         }
+        else if (type == LightComponent::getID())
+            component = entity->addComponent<LightComponent>(); // lit material class PHASE 2
+
         if (component)
             component->deserialize(data);
     }
-
 }
