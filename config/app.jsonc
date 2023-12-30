@@ -244,10 +244,6 @@
                         "type":"Free Camera Controller",
                         "speedupFactor": 5.0,
                         "rotationSensitivity": 0
-                    },
-                    {
-                        "type":"Movement",
-                        "linearVelocity": [0, 0, -5]
                     }
                 ],
                 "children":[{
@@ -260,8 +256,6 @@
                         },
                         {
                             "type": "Movement"
-                            
-
                         }
                     ]
                 }
@@ -373,6 +367,9 @@
                         "type": "Mesh Renderer",
                         "mesh": "tree",
                         "material": "tree"
+                    },
+                    {
+                        "type":"Obstacles"
                     }
                 ]
             },
@@ -385,6 +382,9 @@
                         "type": "Mesh Renderer",
                         "mesh": "tree",
                         "material": "tree"
+                    },
+                    {
+                        "type":"Obstacles"
                     }
                 ]
             },
@@ -397,6 +397,9 @@
                         "type": "Mesh Renderer",
                         "mesh": "tree",
                         "material": "tree"
+                    },
+                    {
+                        "type":"Obstacles"
                     }
                 ]
             },
@@ -409,6 +412,9 @@
                         "type": "Mesh Renderer",
                         "mesh": "tree",
                         "material": "tree"
+                    },
+                    {
+                        "type":"Obstacles"
                     }
                 ]
             },
@@ -421,6 +427,9 @@
                         "type": "Mesh Renderer",
                         "mesh": "tree",
                         "material": "tree"
+                    },
+                    {
+                        "type":"Obstacles"
                     }
                 ]
             },
@@ -433,6 +442,9 @@
                         "type": "Mesh Renderer",
                         "mesh": "OldBuilding1",
                         "material": "OldBuilding1"
+                    },
+                    {
+                        "type":"Obstacles"
                     }
                 ],
                 "children":[
@@ -445,6 +457,9 @@
                                 "type":"Mesh Renderer",
                                 "mesh":"Wall",
                                 "material":"Wall"
+                            },
+                            {
+                                "type":"Obstacles"
                             }
                         ]
                     },{
@@ -456,6 +471,9 @@
                                 "type":"Mesh Renderer",
                                 "mesh":"Wall",
                                 "material":"Wall"
+                            },
+                            {
+                                "type":"Obstacles"
                             }
                         ]
                     }
@@ -469,6 +487,9 @@
                         "type": "Mesh Renderer",
                         "mesh": "OldBuilding1",
                         "material": "OldBuilding1"
+                    },
+                    {
+                        "type":"Obstacles"
                     }
                 ],
                 "children":[
@@ -481,6 +502,9 @@
                                 "type":"Mesh Renderer",
                                 "mesh":"Wall",
                                 "material":"Wall"
+                            },
+                            {
+                                "type":"Obstacles"
                             }
                         ]
                     },{
@@ -492,6 +516,9 @@
                                 "type":"Mesh Renderer",
                                 "mesh":"Wall",
                                 "material":"Wall"
+                            },
+                            {
+                                "type":"Obstacles"
                             }
                         ]
                     }
@@ -505,6 +532,9 @@
                         "type": "Mesh Renderer",
                         "mesh": "OldBuilding1",
                         "material": "OldBuilding1"
+                    },
+                    {
+                        "type":"Obstacles"
                     }
                 ],
                 "children":[
@@ -517,6 +547,9 @@
                                 "type":"Mesh Renderer",
                                 "mesh":"Wall",
                                 "material":"Wall"
+                            },
+                            {
+                                "type":"Obstacles"
                             }
                         ]
                     },{
@@ -528,6 +561,9 @@
                                 "type":"Mesh Renderer",
                                 "mesh":"Wall",
                                 "material":"Wall"
+                            },
+                            {
+                                "type":"Obstacles"
                             }
                         ]
                     }
@@ -541,6 +577,9 @@
                         "type": "Mesh Renderer",
                         "mesh": "OldBuilding1",
                         "material": "OldBuilding1"
+                    },
+                    {
+                        "type":"Obstacles"
                     }
                 ],
                 "children":[
@@ -553,6 +592,9 @@
                                 "type":"Mesh Renderer",
                                 "mesh":"Wall",
                                 "material":"Wall"
+                            },
+                            {
+                                "type":"Obstacles"
                             }
                         ]
                     },{
@@ -564,6 +606,9 @@
                                 "type":"Mesh Renderer",
                                 "mesh":"Wall",
                                 "material":"Wall"
+                            },
+                            {
+                                "type":"Obstacles"
                             }
                         ]
                     }
@@ -578,19 +623,9 @@
                         "type":"Mesh Renderer",
                         "mesh":"Wall",
                         "material":"Wall"
-                    }
-                ]
-            },
-            {
-                "position": [0, 1.8, 10], //original car pos:0,1.8,10
-                "components": [
-                    {
-                        "type": "Mesh Renderer",
-                        "mesh": "car",
-                        "material": "car"
                     },
                     {
-                        "type": "Movement"
+                        "type":"Obstacles"
                     }
                 ]
             }

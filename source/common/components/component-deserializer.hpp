@@ -5,6 +5,7 @@
 #include "mesh-renderer.hpp"
 #include "free-camera-controller.hpp"
 #include "movement.hpp"
+#include "obstacles.hpp"
 
 namespace our
 {
@@ -31,6 +32,10 @@ namespace our
         else if (type == MeshRendererComponent::getID())
         {
             component = entity->addComponent<MeshRendererComponent>();
+        }
+        else if (type == ObstaclesComponent::getID())
+        {
+            component = entity->addComponent<ObstaclesComponent>();
         }
         if (component)
             component->deserialize(data);
