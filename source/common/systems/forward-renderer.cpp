@@ -127,6 +127,11 @@ namespace our {
         for(auto entity : world->getEntities()){
             // If we hadn't found a camera yet, we look for a camera in this entity
             if(!camera) camera = entity->getComponent<CameraComponent>();
+
+            //get all the light components in the world and store them in the lights vector
+            if (auto light = entity->getComponent<LightComponent>())
+                lights.push_back(light);
+
             // If this entity has a mesh renderer component
             if(auto meshRenderer = entity->getComponent<MeshRendererComponent>(); meshRenderer){
                 // We construct a command from it
@@ -191,6 +196,58 @@ namespace our {
         for(auto command : opaqueCommands){
             command.material->setup();
             command.material->shader->set("transform", VP * command.localToWorld);
+
+            // lit material class PHASE 2
+            command.material->shader->set("object_to_world", command.localToWorld);
+            //send the inverse transpose of the object to world matrix to the shader to handle the normals
+            command.material->shader->set("object_to_world_inv_transpose", glm::transpose(glm::inverse(command.localToWorld)));
+            // Adding lighting support
+            command.material->shader->set("view_projection", VP);
+            //get the camera position
+            glm::vec4 eye = camera->getOwner()->getLocalToWorldMatrix() * glm::vec4(0, 0, 0, 1);
+            //send the camera position to the shader
+            command.material->shader->set("camera_position", glm::vec3(eye));
+            //send the light count to the shader
+            command.material->shader->set("light_count", (int)lights.size());
+
+            int light_index = 0;
+            const int MAX_LIGHT_COUNT = 16;
+            //loop over the lights vector and send the light data to the shader
+            //Implement the Single Pass Forward Lighting
+            for (const auto &light : lights)
+            {
+                //send the light data to the shader with the prefix "lights[light_index]."
+                //fot context shader code is Light light = lights[index];
+                std::string prefix = "lights[" + std::to_string(light_index) + "].";
+                //send the light type to the shader, 0 for directional, 1 for point, 2 for spot
+                command.material->shader->set(prefix + "type", static_cast<int>(light->LightType));
+                //send the light color to the shader 
+                command.material->shader->set(prefix + "color", light->color);
+
+                switch (light->LightType)
+                {
+                case LightType::DIRECTIONAL:
+                    command.material->shader->set(prefix + "direction", glm::vec3(light->getOwner()->getLocalToWorldMatrix() * glm::vec4(0.0, -1.0, 0.0, 0.0)));
+                    break;
+                case LightType::POINT:
+                    glm::vec4 light4 = light->getOwner()->getLocalToWorldMatrix() * glm::vec4(light->getOwner()->localTransform.position, 1);
+                    command.material->shader->set(prefix + "position", glm::vec3(light->getOwner()->getLocalToWorldMatrix() * glm::vec4(light->getOwner()->localTransform.position, 0.0f)));
+                    command.material->shader->set(prefix + "attenuation", light->attenuation);
+                    break;
+                case LightType::SPOT:
+                    glm::vec4 Slight = light->getOwner()->getLocalToWorldMatrix() * glm::vec4(light->getOwner()->localTransform.position, 1);
+                    command.material->shader->set(prefix + "position", glm::vec3(light->getOwner()->getLocalToWorldMatrix() * glm::vec4(light->getOwner()->localTransform.position, 0.0f)));
+                    command.material->shader->set(prefix + "direction", glm::vec3(light->getOwner()->getLocalToWorldMatrix()*glm::vec4(0.0,-1.0,0.0,0.0)));
+                    command.material->shader->set(prefix + "attenuation", light->attenuation);
+                    command.material->shader->set(prefix + "inner_angle", glm::radians(light->coneAngles[0]));
+                    command.material->shader->set(prefix + "outer_angle", glm::radians(light->coneAngles[1]));
+                    break;
+                }
+                light_index++;
+                if (light_index >= MAX_LIGHT_COUNT)
+                    break;
+            }
+
             command.mesh->draw();
         }
         
@@ -225,6 +282,55 @@ namespace our {
         for(auto command : transparentCommands){
             command.material->setup();
             command.material->shader->set("transform", VP * command.localToWorld);
+             //Lighting phase 2 Same as opaque commands
+            command.material->shader->set("object_to_world", command.localToWorld);
+            //send the inverse transpose of the object to world matrix to the shader to handle the normals
+            command.material->shader->set("object_to_world_inv_transpose", glm::transpose(glm::inverse(command.localToWorld)));
+            //send the view projection matrix to the shader
+            command.material->shader->set("view_projection", VP);
+            //get the camera position
+            glm::vec4 eye = camera->getOwner()->getLocalToWorldMatrix() * glm::vec4(0, 0, 0, 1);
+            //send the camera position to the shader
+            command.material->shader->set("camera_position", glm::vec3(eye));
+            //send the light count to the shader
+            command.material->shader->set("light_count", (int)lights.size());
+            //loop over the lights vector and send the light data to the shader
+            int light_index = 0;
+            // maximum number of lights is 8
+            const int MAX_LIGHT_COUNT = 16;
+            for (const auto &light : lights)
+            {
+                //send the light data to the shader with the prefix "lights[light_index]."
+                //fot context shader code is Light light = lights[index];
+                std::string prefix = "lights[" + std::to_string(light_index) + "].";
+                //send the light type to the shader, 0 for directional, 1 for point, 2 for spot
+                command.material->shader->set(prefix + "type", static_cast<int>(light->LightType));
+                //send the light color to the shader
+                command.material->shader->set(prefix + "color", light->color);
+                //send the light direction to the shader
+                switch (light->LightType)
+                {   
+                case LightType::DIRECTIONAL:
+                    command.material->shader->set(prefix + "direction", glm::vec3(light->getOwner()->getLocalToWorldMatrix() * glm::vec4(0.0, -1.0, 0.0, 0.0)));
+                    break;
+                case LightType::POINT:
+                    glm::vec4 light4 = light->getOwner()->getLocalToWorldMatrix() * glm::vec4(light->getOwner()->localTransform.position, 1);
+                    command.material->shader->set(prefix + "position", glm::vec3(light->getOwner()->getLocalToWorldMatrix() * glm::vec4(light->getOwner()->localTransform.position, 0.0f)));
+                    command.material->shader->set(prefix + "attenuation", light->attenuation);
+                    break;
+                case LightType::SPOT:
+                    glm::vec4 Slight = light->getOwner()->getLocalToWorldMatrix() * glm::vec4(light->getOwner()->localTransform.position, 1);
+                    command.material->shader->set(prefix + "position", glm::vec3(light->getOwner()->getLocalToWorldMatrix() * glm::vec4(light->getOwner()->localTransform.position, 0.0f)));
+                    command.material->shader->set(prefix + "direction", glm::vec3(light->getOwner()->getLocalToWorldMatrix()*glm::vec4(0.0,-1.0,0.0,0.0)));
+                    command.material->shader->set(prefix + "attenuation", light->attenuation);
+                    command.material->shader->set(prefix + "inner_angle", glm::radians(light->coneAngles[0]));
+                    command.material->shader->set(prefix + "outer_angle", glm::radians(light->coneAngles[1]));
+                    break;
+                }
+                light_index++;
+                if (light_index >= MAX_LIGHT_COUNT)
+                    break;
+            }
             command.mesh->draw();
         }
 

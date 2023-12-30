@@ -5,6 +5,8 @@
 #include "mesh-renderer.hpp"
 #include "free-camera-controller.hpp"
 #include "movement.hpp"
+#include "light.hpp"
+
 
 namespace our {
 
@@ -20,10 +22,12 @@ namespace our {
             component = entity->addComponent<FreeCameraControllerComponent>();
         } else if (type == MovementComponent::getID()) {
             component = entity->addComponent<MovementComponent>();
-        }
-        else if(type == MeshRendererComponent::getID()){
+        } else if(type == MeshRendererComponent::getID()){
             component = entity->addComponent<MeshRendererComponent>();
-        }
+        } else if (type == LightComponent::getID()) 
+            component = entity->addComponent<LightComponent>(); // lit material class PHASE 2 
+        
+
         if(component) component->deserialize(data);
     }
 

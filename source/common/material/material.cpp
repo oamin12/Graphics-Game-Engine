@@ -72,4 +72,101 @@ namespace our {
         sampler = AssetLoader<Sampler>::get(data.value("sampler", ""));
     }
 
+    void litMaterial::setup() const
+    {
+        Material::setup();
+        shader->set("alpha_threshold", alpha_threshold);
+        
+        //Albedo
+        //Activating the texture unit
+        glActiveTexture(GL_TEXTURE0);
+
+        //binging the texture to the active texture unit
+        if (tex_albedo)
+            tex_albedo->bind();
+        else
+            Texture2D::unbind();
+        
+        //Tell OpenGL which sampler object to use
+        if (sampler)
+            sampler->bind(0);
+        else
+            Sampler::unbind(0);
+
+        //Sending the unit number to the uniform variable
+        shader->set("tex_material.albedo_map", 0);
+
+        //Specular
+        glActiveTexture(GL_TEXTURE1);
+
+        if (tex_specular)
+            tex_specular->bind();
+        else
+            Texture2D::unbind();
+        if (sampler)
+            sampler->bind(1);
+        else
+            Sampler::unbind(1);
+
+        shader->set("tex_material.specular_map", 1);
+
+        //Roughness
+        glActiveTexture(GL_TEXTURE2);
+
+        if (tex_rougness)
+            tex_rougness->bind();
+        else
+            Texture2D::unbind();
+        if (sampler)
+            sampler->bind(2);
+        else
+            Sampler::unbind(2);
+
+        shader->set("tex_material.roughness_map", 2);
+
+        //Ambient Occlusion
+        glActiveTexture(GL_TEXTURE3);
+
+        if (tex_ao)
+            tex_ao->bind();
+        else
+            Texture2D::unbind();
+        if (sampler)
+            sampler->bind(3);
+        else
+            Sampler::unbind(3);
+
+        shader->set("tex_material.ambient_occlusion_map", 3);
+
+        //Emission
+        glActiveTexture(GL_TEXTURE4);
+        
+        if (tex_emission)
+            tex_emission->bind();
+        else
+            Texture2D::unbind();
+        if (sampler)
+            sampler->bind(4);
+        else
+            Sampler::unbind(4);
+        
+        shader->set("tex_material.emissive_map", 4);
+		
+    }
+
+    // Read the lit material data from a light object in the json file
+    void litMaterial::deserialize(const nlohmann::json &data)
+    {
+        Material::deserialize(data);
+        if (!data.is_object())
+            return;
+        alpha_threshold = data.value("alphaThreshold", 0.0f);
+        // load (deserialize) texture maps from json file
+        tex_albedo = AssetLoader<Texture2D>::get(data.value("albedo-texture", "black"));
+        tex_specular = AssetLoader<Texture2D>::get(data.value("specular-texture", "black"));
+        tex_ao = AssetLoader<Texture2D>::get(data.value("ambient-occlusion-texture", "black"));
+        tex_rougness = AssetLoader<Texture2D>::get(data.value("roughness-texture", "black"));
+        tex_emission = AssetLoader<Texture2D>::get(data.value("emission-texture", "black"));
+        sampler = AssetLoader<Sampler>::get(data.value("sampler", "white"));
+    }
 }
