@@ -6,7 +6,8 @@
 #include "free-camera-controller.hpp"
 #include "movement.hpp"
 #include "obstacles.hpp"
-
+#include "treeobstacles.hpp"
+#include "buildingobstacles.hpp"
 #include "light.hpp"
 
 namespace our
@@ -39,9 +40,18 @@ namespace our
         {
             component = entity->addComponent<ObstaclesComponent>();
         }
+        else if (type == BuildingObstaclesComponent::getID())
+        {
+            component = entity->addComponent<BuildingObstaclesComponent>();
+        }
+        else if (type == TreeObstaclesComponent::getID())
+        {
+            component = entity->addComponent<TreeObstaclesComponent>();
+        }
         else if (type == LightComponent::getID())
+        {
             component = entity->addComponent<LightComponent>(); // lit material class PHASE 2
-
+        }
         if (component)
             component->deserialize(data);
     }

@@ -79,6 +79,10 @@ set(COMMON_SOURCES
         source/common/components/movement.cpp
         source/common/components/obstacles.hpp
         source/common/components/obstacles.cpp
+        source/common/components/buildingobstacles.hpp
+        source/common/components/buildingobstacles.cpp
+        source/common/components/treeobstacles.hpp
+        source/common/components/treeobstacles.cpp
         source/common/components/component-deserializer.hpp
         source/common/components/light.hpp
         source/common/components/light.cpp
