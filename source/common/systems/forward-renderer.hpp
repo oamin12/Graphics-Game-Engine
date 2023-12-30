@@ -37,8 +37,7 @@ namespace our
         std::vector<RenderCommand> transparentCommands;
 
         std::vector<LightComponent *> lights;   // lit material class PHASE 2 light component vector 
-
-
+        bool isShiftPressed = false; //for post processing
         // Objects used for rendering a skybox
         Mesh* skySphere;
         TexturedMaterial* skyMaterial;
@@ -54,6 +53,8 @@ namespace our
         void destroy();
         // This function should be called every frame to draw the given world
         void render(World* world);
+
+        void changeIsShiftPressed(bool isShiftPressed); //for post processing
 
 
     };

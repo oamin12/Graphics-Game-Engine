@@ -38,11 +38,23 @@ class Playstate: public our::State {
         // Here, we just run a bunch of systems to control the world logic
         movementSystem.update(&world, (float)deltaTime);
         cameraController.update(&world, (float)deltaTime);
+       // Get a reference to the keyboard object
+        auto& keyboard = getApp()->getKeyboard();
+
+        //check if shift is pressed
+        if(keyboard.isPressed(GLFW_KEY_LEFT_SHIFT)){
+            // If the shift key is pressed we want to activate motion blur
+            renderer.changeIsShiftPressed(true);
+        }
+        else{
+            // If the shift key is not pressed we want to deactivate motion blur
+            renderer.changeIsShiftPressed(false);
+        }
+
         // And finally we use the renderer system to draw the scene
         renderer.render(&world);
 
-        // Get a reference to the keyboard object
-        auto& keyboard = getApp()->getKeyboard();
+ 
 
         if(keyboard.justPressed(GLFW_KEY_ESCAPE)){
             // If the escape  key is pressed in this frame, go to the play state

@@ -1,7 +1,10 @@
 #include "forward-renderer.hpp"
 #include "../mesh/mesh-utils.hpp"
 #include "../texture/texture-utils.hpp"
+#include <GLFW/glfw3.h>
 #include <iostream>
+#include <application.hpp>
+
 namespace our {
 
     void ForwardRenderer::initialize(glm::ivec2 windowSize, const nlohmann::json& config){
@@ -117,6 +120,10 @@ namespace our {
             delete postprocessMaterial->shader;
             delete postprocessMaterial;
         }
+    }
+
+    void ForwardRenderer::changeIsShiftPressed(bool isShiftPressed){
+        this->isShiftPressed = isShiftPressed;
     }
 
     void ForwardRenderer::render(World* world){
@@ -335,7 +342,21 @@ namespace our {
         }
 
         // If there is a postprocess material, apply postprocessing
-        if(postprocessMaterial){
+        //and check if shiftpressed to toggle between the postprocess and the normal scene
+        if(postprocessMaterial != nullptr ){
+
+            if (isShiftPressed)
+            {
+                postprocessMaterial->shader->use();
+                GLfloat value = 0.2f;
+                postprocessMaterial->shader->set("radial_blur", value);
+            }
+            else
+            {
+                postprocessMaterial->shader->use();
+                GLfloat value = 0.0f;
+                postprocessMaterial->shader->set("radial_blur", value);
+            }
             //TODO: (Req 11) Return to the default framebuffer
             
             glBindFramebuffer(GL_FRAMEBUFFER, 0);
