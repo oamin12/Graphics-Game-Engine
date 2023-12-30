@@ -80,10 +80,14 @@ namespace our
                     // entity->localTransform.position += deltaTime * movement->linearVelocity;
                     // entity->localTransform.rotation += deltaTime * movement->angularVelocity;
                     // printf("%s\n", movement->getID().c_str());
+                    if ((entity->localTransform.position - caroffset)[2] <= -60.0f)
+                    {
+                        world->setFinished_Race(true);
+                    }
                     bool collided = checkCollision(world, entity->localTransform.position - caroffset);
                     if (collided)
                     {
-                        printf("Collision detected\n");
+                        world->setCollided(true);
                     }
                 }
             }
