@@ -32,6 +32,8 @@ namespace our
                     float obstacle_z = entity->localTransform.position.z;
                     if (sqrt((position.x - obstacle_x) * (position.x - obstacle_x) + (position.z - obstacle_z) * (position.z - obstacle_z)) < 5)
                     {
+                        printf("Position x: %f, Position z: %f\n", position.x, position.z);
+                        printf("Obstacle x: %f, Obstacle z: %f\n", obstacle_x, obstacle_z);
                         printf("Colided fucker moment with %s\n", Obstacle->getID().c_str());
                         return true;
                     }
@@ -46,12 +48,22 @@ namespace our
             {
                 // Get the movement component if it exists
                 MovementComponent *movement = entity->getComponent<MovementComponent>();
+                CameraComponent* camera = entity->getComponent<CameraComponent>();
+
                 // If the movement component exists
-                if (movement)
+                if (camera)
                 {
+                    // if (entity->localTransform.position.y < -15.0f) {
+                    //     // return to original coordinares (respawn)
+                    //     entity->localTransform.position.x = 0.0f + 8 * glm::sin(entity->localTransform.rotation.y);
+                    //     entity->localTransform.position.y = 0.0f;
+                    //     entity->localTransform.position.z = 2.0f + 8 * glm::cos(entity->localTransform.rotation.y);
+                    //     // this time, we add the correction instead of removing it, as this is relative to the camera
+                    //     // (k2nena bn3ml el 3aks)
+                    // }
                     // Change the position and rotation based on the linear & angular velocity and delta time.
-                    entity->localTransform.position += deltaTime * movement->linearVelocity;
-                    entity->localTransform.rotation += deltaTime * movement->angularVelocity;
+                    //entity->localTransform.position += deltaTime * movement->linearVelocity;
+                    //entity->localTransform.rotation += deltaTime * movement->angularVelocity;
                     // printf("%s\n", movement->getID().c_str());
                     bool collided = checkCollision(world, entity->localTransform.position);
                     // if (collided)
