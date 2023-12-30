@@ -23,6 +23,10 @@
                 "textured":{
                     "vs":"assets/shaders/textured.vert",
                     "fs":"assets/shaders/textured.frag"
+                },
+                "light":{
+                    "vs":"assets/shaders/light.vert",
+                    "fs":"assets/shaders/light.frag"
                 }
             },
             "textures":{
@@ -37,7 +41,12 @@
                 "tree": "assets/textures/tree.png",
                 "car": "assets/textures/porsche911.jpg",
                 "WildWestBank": "assets/textures/West_Wild_Home_16.jpg",
-                "Wall": "assets/textures/wall.jpg"
+                "Wall": "assets/textures/wall.jpg",
+                "emissive":"assets/textures/emissive.jpg",
+                "albedo":"assets/textures/albedo.jpg",
+                "specular":"assets/textures/specular.jpg",
+                "roughness":"assets/textures/roughness.jpg",
+                "ambient-occlusion":"assets/textures/ambient-occlusion.jpg"
             },
             "meshes":{
                 "cube": "assets/models/cube.obj",
@@ -139,8 +148,8 @@
                     "sampler": "default"
                 },
                 "road":{
-                    "type": "textured",
-                    "shader": "textured",
+                    "type": "lit",
+                    "shader": "light",
                     "pipelineState": {
                         "faceCulling":{
                             "enabled": false
@@ -151,6 +160,11 @@
                     },
                     "tint": [1, 1, 1, 1],
                     "texture": "road",
+                    "albedo-texture": "road",
+                    "specular-texture": "road",
+                    "roughness-texture": "road",
+                    "ambient-occlusion-texture": "road",
+                    "emission-texture": "road",
                     "sampler": "default"
                 },
                 "tree":{
@@ -169,8 +183,8 @@
                     "sampler": "default"
                 },
                 "car":{
-                    "type": "textured",
-                    "shader": "textured",
+                    "type": "lit",
+                    "shader": "light",
                     "pipelineState": {
                         "faceCulling":{
                             "enabled": false
@@ -181,7 +195,12 @@
                     },
                     "tint": [1, 1, 1, 1],
                     "texture": "car",
-                    "sampler": "default"
+                    "sampler": "default",
+                    "albedo-texture": "car",
+                    "specular-texture": "car",
+                    "roughness-texture": "car",
+                    "ambient-occlusion-texture": "car",
+                    "emission-texture": "car"
                 },
                 "OldBuilding1":{
                     "type": "textured",
@@ -591,6 +610,19 @@
                     },
                     {
                         "type": "Movement"
+                    }
+                ]
+            },
+            { // Directional Light
+                "position": [ -3, 100, 1 ], 
+                "name": "directional light",
+                "components": [
+                    {
+                        "type": "Light",
+                        "lightType": "directional",
+                        "color": [ 0.05, 0.05, 0.05 ], // light color
+                        "coneAngles": [ 30.0, 45.0 ],
+                        "attenuation": [ 0, 0, 0.2 ]
                     }
                 ]
             }
