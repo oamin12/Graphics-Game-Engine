@@ -120,6 +120,7 @@ namespace our {
             delete postprocessMaterial->shader;
             delete postprocessMaterial;
         }
+        lights.clear();
     }
 
     void ForwardRenderer::changeIsShiftPressed(bool isShiftPressed){
