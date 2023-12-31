@@ -85,6 +85,20 @@ namespace our
                     {
                         world->setCollided(true);
                     }
+                    // check on edges if the car is out of the road it falls
+                    if (entity->localTransform.position.x < -15.0f || entity->localTransform.position.x > 15.0f || entity->localTransform.position.z > 35.0f ) {
+                        // return to original spawn point
+                        //entity->localTransform.position.x = 0.0f ;
+                        entity->localTransform.position.y -= deltaTime * 5.0f;
+                        //entity->localTransform.position.z = 20.0f ;
+                    }
+
+                    if(entity->localTransform.position.y < -10.0f){
+                        entity->localTransform.position.x = 0.0f ;
+                        entity->localTransform.position.y = 3.0f;
+                        entity->localTransform.position.z = 20.0f ;
+                    }
+
                 }
             }
         }
