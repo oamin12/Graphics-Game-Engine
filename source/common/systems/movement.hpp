@@ -64,21 +64,17 @@ namespace our
                 // Get the movement component if it exists
                 MovementComponent *movement = entity->getComponent<MovementComponent>();
                 CameraComponent *camera = entity->getComponent<CameraComponent>();
-
+                if (movement)
+                {
+                    //entity->localTransform.position += deltaTime * movement->linearVelocity;
+                    entity->localTransform.rotation += deltaTime * movement->angularVelocity;
+                }
                 // If the movement component exists
                 if (camera)
                 {
-                    // if (entity->localTransform.position.y < -15.0f) {
-                    //     // return to original coordinares (respawn)
-                    //     entity->localTransform.position.x = 0.0f + 8 * glm::sin(entity->localTransform.rotation.y);
-                    //     entity->localTransform.position.y = 0.0f;
-                    //     entity->localTransform.position.z = 2.0f + 8 * glm::cos(entity->localTransform.rotation.y);
-                    //     // this time, we add the correction instead of removing it, as this is relative to the camera
-                    //     // (k2nena bn3ml el 3aks)
-                    // }
+                    
                     // Change the position and rotation based on the linear & angular velocity and delta time.
-                    // entity->localTransform.position += deltaTime * movement->linearVelocity;
-                    // entity->localTransform.rotation += deltaTime * movement->angularVelocity;
+                    //entity->localTransform.position += deltaTime * movement->linearVelocity;
                     // printf("%s\n", movement->getID().c_str());
                     if ((entity->localTransform.position - caroffset)[2] <= -60.0f)
                     {

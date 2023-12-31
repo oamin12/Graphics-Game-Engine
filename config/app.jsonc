@@ -53,7 +53,10 @@
                 "roughness":"assets/textures/roughness.jpg",
                 "ambient-occlusion":"assets/textures/ambient-occlusion.jpg",
                 "barrier": "assets/textures/textureforbarriere.png",
-                "finish": "assets/textures/finish.png"
+                "finish": "assets/textures/finish.png",
+                "sun": "assets/textures/sun.jpg",
+                "rex": "assets/textures/rex.png",
+                "disco" : "assets/textures/disco.jpg"
             },
             "meshes":{
                 "cube": "assets/models/cube.obj",
@@ -87,6 +90,24 @@
                         }
                     },
                     "tint": [0.45, 0.4, 0.5, 1]
+                },
+                "disco":{
+                    "type": "lit",
+                    "shader": "light",
+                    "pipelineState": {
+                        "faceCulling":{
+                            "enabled": false
+                        },
+                        "depthTesting":{
+                            "enabled": true
+                        }
+                    },
+                    "tint": [1, 1, 1, 1],
+                    "albedo-texture": "albedo",
+                    "specular-texture": "specular",
+                    "roughness-texture": "roughness",
+                    "ambient-occlusion-texture": "disco",
+                    "sampler": "default"
                 },
                 "glass":{
                     "type": "textured",
@@ -153,6 +174,37 @@
                     },
                     "tint": [1, 1, 1, 1],
                     "texture": "moon",
+                    "sampler": "default"
+                },
+                "sun":{
+                    "type": "textured",
+                    "shader": "textured",
+                    "pipelineState": {
+                        "faceCulling":{
+                            "enabled": true
+                        },
+                        "depthTesting":{
+                            "enabled": true
+                        }
+                    },
+                    "tint": [1, 1, 1, 1],
+                    "texture": "sun",
+                    "sampler": "default"
+            
+                },
+                "rex":{
+                    "type": "textured",
+                    "shader": "textured",
+                    "pipelineState": {
+                        "faceCulling":{
+                            "enabled": false
+                        },
+                        "depthTesting":{
+                            "enabled": true
+                        }
+                    },
+                    "tint": [1, 1, 1, 1],
+                    "texture": "rex",
                     "sampler": "default"
                 },
                 "road":{
@@ -706,7 +758,6 @@
                     }
                 ]
             },
-            
             {
                 "position": [10, 1, -40],
                 "rotation": [0, -90, 0],
@@ -1159,6 +1210,32 @@
                 ]
             },
             {
+                "position": [ 2, 15, -9 ],
+                "name": "spot light",
+                "components": [
+                    {
+                        "type": "Light",
+                        "lightType": "spot",
+                        "color": [ 0.0, 0.2, 0.0 ],
+                        "attenuation": [ 0, 0, 0.001 ],
+                        "coneAngles": [ 10, 15 ]
+                    }
+                ]
+            },
+            {
+                "position": [ 2, 15, -62 ],
+                "name": "point light",
+                "components": [
+                    {
+                        "type": "Light",
+                        "lightType": "point",
+                        "color": [ 0.09, 0.0, 0.09 ],
+                        "attenuation": [ 0, 0, 0.001 ]
+                    }
+                ]
+
+            },
+            {
                 "position":[2,1.5,-55],
                 "rotation":[0,90,0],
                 "scale":[0.2,0.2,0.1],
@@ -1202,7 +1279,25 @@
                         "type":"Obstacles"
                     }
                 ]
+            },
+            {
+                "position": [2, 15, -62],
+                "scale": [2, 2, 2],
+                
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "sphere",
+                        "material": "disco"
+                    },
+                    {
+                        "type": "Movement",
+                        "angularVelocity": [0, 90, 0]
+                    }
+
+                ]
             }
+
             // {
             //     "rotation": [-45, 0, 0],
             //     "components": [
