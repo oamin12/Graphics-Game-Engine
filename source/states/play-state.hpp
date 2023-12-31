@@ -7,7 +7,8 @@
 #include <systems/free-camera-controller.hpp>
 #include <systems/movement.hpp>
 #include <asset-loader.hpp>
-
+#include <irrKlang.h>
+using namespace irrklang;
 // This state shows how to use the ECS framework and deserialization.
 class Playstate : public our::State
 {
@@ -16,6 +17,7 @@ class Playstate : public our::State
     our::ForwardRenderer renderer;
     our::FreeCameraControllerSystem cameraController;
     our::MovementSystem movementSystem;
+    ISoundEngine *mp3Teryaki = nullptr;
 
     void onInitialize() override
     {
@@ -36,6 +38,10 @@ class Playstate : public our::State
         // Then we initialize the renderer
         auto size = getApp()->getFrameBufferSize();
         renderer.initialize(size, config["renderer"]);
+        // songsssssssss TOKYOOOOOOOOO
+        mp3Teryaki = createIrrKlangDevice();
+        mp3Teryaki->setSoundVolume(0.1f); 
+        mp3Teryaki->play2D("assets/music/tokyo.mp3", false, false, true);
     }
 
     void onDraw(double deltaTime) override
@@ -88,5 +94,6 @@ class Playstate : public our::State
         world.clear();
         // and we delete all the loaded assets to free memory on the RAM and the VRAM
         our::clearAllAssets();
+        delete mp3Teryaki;
     }
 };

@@ -1195,6 +1195,35 @@
                         "type":"Tree Obstacles"
                     }
                 ]
+            },{
+                "position": [-10, 1, 17],
+                "rotation": [0, 0, 0],
+                "scale": [0.01, 0.008, 0.01],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "tree",
+                        "material": "tree"
+                    },
+                    {
+                        "type":"Tree Obstacles"
+                    }
+                ]
+            },
+            {
+                "position": [13, 1, 17],
+                "rotation": [0, 0, 0],
+                "scale": [0.01, 0.008, 0.01],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "tree",
+                        "material": "tree"
+                    },
+                    {
+                        "type":"Tree Obstacles"
+                    }
+                ]
             },
             { // Directional Light
                 "position": [ -3, 100, 1 ], 
@@ -1232,6 +1261,24 @@
                         "color": [ 0.09, 0.0, 0.09 ],
                         "attenuation": [ 0, 0, 0.001 ]
                     }
+                ]
+
+            },
+            {
+                "position": [ 0, 3, -9 ],
+                "name": "point light",
+                "components": [
+                    {
+                        "type": "Light",
+                        "lightType": "point",
+                        "color": [ 0.09, 0.0, 0.00 ],
+                        "attenuation": [ 0, 0, 0.001 ]
+                    },
+                    {
+                        "type": "Movement",
+                        "angularVelocity": [0, 45, 0]
+                    }
+
                 ]
 
             },
