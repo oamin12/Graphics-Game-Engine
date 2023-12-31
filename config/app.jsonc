@@ -13,6 +13,8 @@
         "renderer":{
             "sky": "assets/textures/sky2.jpg",
             "postprocess": "assets/shaders/postprocess/radial-blur.frag"
+            //the next line is an effect that wasnt there in the first phase but our current is better
+            //"postprocess": "assets/shaders/postprocess/scanline.frag"
         },
         "assets":{
             "shaders":{
