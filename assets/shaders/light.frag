@@ -1,10 +1,10 @@
 #version 330 core
 
-//types of lights either directional, point or spot
+//types of lights are directional, point or spot
 #define TYPE_DIRECTIONAL    0
 #define TYPE_POINT          1
 #define TYPE_SPOT           2
-#define MAX_LIGHT_COUNT     8   // This will define the maximum number of lights we can receive
+#define MAX_LIGHT_COUNT     8   // This will define the maximum number of lights
 
 
 in Varyings {
@@ -131,7 +131,7 @@ void main() {
             }
         }
 
-
+        
         vec3 diffuse = material.diffuse * light.color * max(0.0f, dot(normal, -light.direction));
         vec3 specular = material.specular * light.color * pow(max(0.0f, dot(view, reflect(light.direction, normal))), material.shininess);
         vec3 ambient = material.ambient * light.color;

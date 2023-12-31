@@ -345,7 +345,7 @@ namespace our {
         // If there is a postprocess material, apply postprocessing
         //and check if shiftpressed to toggle between the postprocess and the normal scene
         if(postprocessMaterial != nullptr ){
-
+            //check if shift is pressed to toggle between the postprocess and the normal scene
             if (isShiftPressed)
             {
                 postprocessMaterial->shader->use();
